@@ -1,0 +1,44 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import { LayoutShell } from "@/components/LayoutShell";
+import { PagePagination } from "@/components/PagePagination";
+
+export const metadata: Metadata = {
+  title: "Seisen UI Documentation",
+  description: "Documentation for the Seisen UI Library - A modern Roblox UI framework",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var savedTheme = localStorage.getItem('theme');
+                  var theme = savedTheme || 'dark';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="antialiased" suppressHydrationWarning={true}>
+        <LayoutShell>
+          {children}
+          <PagePagination />
+        </LayoutShell>
+      </body>
+    </html>
+  );
+}
